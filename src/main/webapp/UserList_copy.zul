@@ -1,0 +1,47 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./userList" ?>
+<window width="100%" border="none" id="userList"
+        apply="CRUDExample.controller.UserListController_copy">
+    <separator />
+    <separator />
+    <div width="100%">
+        <div sclass="sectionTitle">
+            <separator />
+            <label value="Address Book" sclass="sectionTitleLabel" />
+            <separator />
+        </div>
+        <div style="float:right">
+            <button label="Add New" mold="trendy" id="btnNew"
+                    sclass="mybutton button blue small" />
+        </div>
+        <div style="clear: both;"></div>
+        <div sclass="sectionSeperator"></div>
+    </div>
+    <separator />
+    <listbox id="UserListbox" model="@{controller.appUsersList}"
+             selectedItem="@{controller.selectedUser}" multiple="false"
+             emptyMessage="No User found in the database">
+        <listhead sizable="true">
+            <listheader label="User ID" sort="auto" />
+            <listheader label="Last Name" sort="auto" />
+            <listheader label="First Name" sort="auto" />
+            <listheader label="Action" />
+        </listhead>
+
+        <listitem self="@{each='users'}" value="@{users}"
+                  forward="onDoubleClick=onDoubleClickedPersonItem">
+            <listcell label="@{users.userID}" />
+            <listcell label="@{users.lastName}" />
+            <listcell label="@{users.firstName}" />
+            <listcell>
+                <hbox spacing="20px">
+                    <button label="Edit" forward="onClick=UserListbox.onEdit" mold="trendy" />
+                    <button label="View" forward="onClick=UserListbox.onView" mold="trendy" />
+                    <button label="Delete"  forward="onClick=UserListbox.onDelete" mold="trendy" />
+                </hbox>
+            </listcell>
+        </listitem>
+
+    </listbox>
+
+
+</window>
